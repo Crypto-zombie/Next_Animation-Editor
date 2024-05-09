@@ -1,13 +1,15 @@
 'use client'
+import AnimateModel from './AnimateModel'
 import React from 'react'
-import { Environment, OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
+import { Environment } from '@react-three/drei'
 
 export default function Scene() {
   return (
     <Canvas>
+      <AnimateModel />
       <Environment preset="city" />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
     </Canvas>
   )
 }
