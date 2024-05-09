@@ -8,9 +8,7 @@ const inter = Sorts_Mill_Goudy({
 })
 
 export const metadata: Metadata = {
-  title: '3D Paranoma Tool',
-  description: 'Made by Yamato',
-  creator: 'plute.dev@gmail.com'
+  title: '3D Animation Tool'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
