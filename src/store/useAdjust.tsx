@@ -4,7 +4,7 @@ import { create } from 'zustand'
 type Position = {
   X: number
   Y: number
-  DetalTime: number
+  DeltaTime: number
 }
 
 export type initialState = {
@@ -53,15 +53,21 @@ export const useAdjust = create<initialState>((set) => ({
       animList: []
     })),
   addPosition: () =>
-    set((state: any) => ({
-      ...state,
-      animList: [
-        ...state.animList,
+    set((state) => {
+      const newAnimList = [
+        ...state.animList.filter((item) => item.DeltaTime !== state.time),
         {
           X: state.x,
           Y: state.y,
-          Time: state.time
+          DeltaTime: state.time
         }
       ]
-    }))
+
+      newAnimList.sort((a, b) => a.DeltaTime - b.DeltaTime)
+
+      return {
+        ...state,
+        animList: newAnimList
+      }
+    })
 }))
