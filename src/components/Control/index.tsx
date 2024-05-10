@@ -6,11 +6,12 @@ import XSlider from '@/components/XSlider'
 import YSlider from '@/components/YSlider'
 import { CgRecord } from '@react-icons/all-files/cg/CgRecord'
 import { FaPlay } from '@react-icons/all-files/fa/FaPlay'
+import { FaStop } from '@react-icons/all-files/fa/FaStop'
 import { FaTrash } from '@react-icons/all-files/fa/FaTrash'
 import { useAdjust } from '@/store/useAdjust'
 
 export default function Control() {
-  const { addPosition, clearList } = useAdjust()
+  const { addPosition, status, setStatus, clearList } = useAdjust()
   return (
     <div className="absolute right-2 top-1/2 flex -translate-y-1/2 flex-col items-center justify-center space-y-2 bg-black bg-opacity-50 p-8 text-white">
       <XSlider />
@@ -26,9 +27,18 @@ export default function Control() {
         </div>
         <div
           className="flex items-center justify-center space-x-2 bg-zinc-900 p-2 hover:bg-zinc-800"
-          onClick={() => addPosition()}>
-          <FaPlay className="h-3 w-3" />
-          <p>Play</p>
+          onClick={() => setStatus(!status)}>
+          {status ? (
+            <>
+              <FaStop className="h-3 w-3" />
+              <p>Stop</p>
+            </>
+          ) : (
+            <>
+              <FaPlay className="h-3 w-3" />
+              <p>Play</p>
+            </>
+          )}
         </div>
         <div
           className="flex items-center justify-center space-x-2 bg-zinc-900 p-2 hover:bg-zinc-800"

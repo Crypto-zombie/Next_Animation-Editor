@@ -3,7 +3,6 @@ import { useAdjust } from '@/store/useAdjust'
 
 export default function Marks() {
   const { animList } = useAdjust()
-  console.log('animList', animList)
   return (
     <div className="w-60 -translate-y-3">
       {animList.map((item, index) => (

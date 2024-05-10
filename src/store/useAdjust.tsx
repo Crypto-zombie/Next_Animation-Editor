@@ -12,19 +12,28 @@ export type initialState = {
   y: number
   time: number
   animList: Array<Position>
+  status: boolean
   setX: (value: number) => void
   setY: (value: number) => void
   setTime: (value: number) => void
   clearList: () => void
   setValue: (value: Position) => void
   addPosition: () => void
+  setStatus: (value: boolean) => void
 }
 
 export const useAdjust = create<initialState>((set) => ({
   x: 0,
   y: 0,
-  animList: [],
+  animList: [
+    {
+      X: 0,
+      Y: 0,
+      DeltaTime: 0
+    }
+  ],
   time: 0,
+  status: false,
   setX: (value: number) =>
     set((state: any) => ({
       ...state,
@@ -50,7 +59,18 @@ export const useAdjust = create<initialState>((set) => ({
   clearList: () =>
     set((state: any) => ({
       ...state,
-      animList: []
+      animList: [
+        {
+          X: 0,
+          Y: 0,
+          DeltaTime: 0
+        }
+      ]
+    })),
+  setStatus: (value: boolean) =>
+    set((state: any) => ({
+      ...state,
+      status: value
     })),
   addPosition: () =>
     set((state) => {
