@@ -46,7 +46,7 @@ const AnimateModel = () => {
         clearInterval(intervalRef.current)
       }
     }
-  }, [animList, status, setStatus])
+  }, [status])
 
   return (
     <mesh
