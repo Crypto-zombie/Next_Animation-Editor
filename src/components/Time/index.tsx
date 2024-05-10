@@ -9,7 +9,7 @@ export default function Time() {
       max={5}
       min={0}
       step={0.1}
-      text={'Time'}
+      text={'Timeline'}
       value={length}
       defaultValue={length ?? 1}
       onChange={(nextValues: any) => {

@@ -1,10 +1,11 @@
-import React from 'react'
+import { useAdjust } from '@/store/useAdjust'
 
 export default function AnimateModel() {
+  const { x, y } = useAdjust()
   return (
-    <mesh>
-      <boxGeometry args={[1, 1, 1, 2, 2, 2]} />
-      <meshStandardMaterial color={'pink'} />
+    <mesh position={[x, y, 0]}>
+      <planeGeometry args={[1, 1, 1, 1]} />
+      <meshBasicMaterial color={'pink'} />
     </mesh>
   )
 }
