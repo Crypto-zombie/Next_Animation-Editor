@@ -6,34 +6,39 @@ import { useEffect, useRef } from 'react'
 const AnimateModel = () => {
   const meshRef = useRef<any>(null)
   const intervalRef = useRef<any>(null)
-  const { animList, status, setStatus } = useAdjust()
+  const frame = useRef<number>(0)
+  const currentIndex = useRef<number>(0)
+  const { x, y, animList, status, setStatus } = useAdjust()
 
   useEffect(() => {
     if (status && meshRef.current) {
-      let currentIndex = 0
-      meshRef.current.position.x = animList[currentIndex].X
-      meshRef.current.position.y = animList[currentIndex].Y
+      if (currentIndex.current === 0 && frame.current === 0) {
+        meshRef.current.position.x = animList[currentIndex.current].X
+        meshRef.current.position.y = animList[currentIndex.current].Y
+      }
       const animate = () => {
-        if (currentIndex < animList.length - 1) {
-          const currentPos = animList[currentIndex]
-          const nextPos = animList[currentIndex + 1]
+        if (currentIndex.current < animList.length - 1) {
+          const currentPos = animList[currentIndex.current]
+          const nextPos = animList[currentIndex.current + 1]
           const deltaTime = (nextPos.DeltaTime - currentPos.DeltaTime) * 50
           const deltaX = (nextPos.X - currentPos.X) / deltaTime
           const deltaY = (nextPos.Y - currentPos.Y) / deltaTime
 
-          let frame = 0
           intervalRef.current = setInterval(() => {
-            if (frame < deltaTime) {
+            if (frame.current < deltaTime) {
               meshRef.current.position.x += deltaX
               meshRef.current.position.y += deltaY
-              frame++
+              frame.current++
+              console.log('frame:', frame.current)
             } else {
+              frame.current = 0
               clearInterval(intervalRef.current)
-              currentIndex++
+              currentIndex.current++
               animate()
             }
           }, 20)
         } else {
+          currentIndex.current = 0
           setStatus(false)
         }
       }
@@ -46,12 +51,14 @@ const AnimateModel = () => {
         clearInterval(intervalRef.current)
       }
     }
-  }, [status])
+  }, [status]) // Include isPaused in the dependency array
+
+  // Function to toggle pause state
 
   return (
     <mesh
-      ref={meshRef}
-      visible={status}>
+      position={[x, y, 0]}
+      ref={meshRef}>
       <planeGeometry args={[1, 1, 1, 1]} />
       <meshBasicMaterial color={'pink'} />
     </mesh>

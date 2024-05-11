@@ -31,7 +31,7 @@ export default function Control() {
           {status ? (
             <>
               <FaStop className="h-3 w-3" />
-              <p>Stop</p>
+              <p>Pause</p>
             </>
           ) : (
             <>

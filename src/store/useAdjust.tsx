@@ -13,9 +13,13 @@ export type initialState = {
   time: number
   animList: Array<Position>
   status: boolean
+  frame: number
+  currentIndex: number
   setX: (value: number) => void
   setY: (value: number) => void
   setTime: (value: number) => void
+  setFrame: (value: number) => void
+  setCurrentIndex: (value: number) => void
   clearList: () => void
   setValue: (value: Position) => void
   addPosition: () => void
@@ -25,6 +29,8 @@ export type initialState = {
 export const useAdjust = create<initialState>((set) => ({
   x: 0,
   y: 0,
+  frame: 0,
+  currentIndex: 0,
   animList: [
     {
       X: 0,
@@ -34,6 +40,16 @@ export const useAdjust = create<initialState>((set) => ({
   ],
   time: 0,
   status: false,
+  setFrame: (value: number) =>
+    set((state: any) => ({
+      ...state,
+      frame: value
+    })),
+  setCurrentIndex: (value: number) =>
+    set((state: any) => ({
+      ...state,
+      currentIndex: value
+    })),
   setX: (value: number) =>
     set((state: any) => ({
       ...state,
